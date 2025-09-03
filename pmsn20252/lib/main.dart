@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pmsn20252/screens/home_screen.dart';
 import 'package:pmsn20252/screens/login_screen.dart';
 
 void main() {
@@ -10,6 +11,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: 'Material App', home: LoginScreen());
+    return MaterialApp(
+      theme: ThemeData.dark(),
+      routes: {"/home": (context) => HomeScreen()},
+      title: 'Material App',
+      home: LoginScreen(),
+    );
   }
 }
