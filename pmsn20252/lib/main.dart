@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
           theme: value ? ThemeApp.darkTheme() : ThemeApp.lightTheme(),
           routes: {
             "/home": (context) => HomeScreen(),
-            "uiChallenge": (context) => UiChallenge3(),
+            "/uiChallenge": (context) => UiChallenge3(),
           },
           title: 'Material App',
           home: LoginScreen(),

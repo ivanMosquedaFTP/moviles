@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             IconButton(
               onPressed: () {
-                Navigator.pushNamed(context, "uiChallenge");
+                Navigator.pushNamed(context, "/uiChallenge");
               },
               icon: Icon(Icons.nightlife),
             ),
