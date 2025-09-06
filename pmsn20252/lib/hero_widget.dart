@@ -71,7 +71,6 @@ class HeroRowWidget extends StatelessWidget {
                       hero.image,
                       width: rowHeight,
                       height: rowHeight,
-                      package: 'ui_challenge_3',
                     ),
                   ),
                 ),
@@ -88,15 +87,15 @@ class HeroRowWidget extends StatelessWidget {
                 children: [
                   AttributeWidget(
                     progress: hero.speed,
-                    child: Image.asset(speed, package: 'ui_challenge_3'),
+                    child: Image.asset("assets/speed.png"),
                   ),
                   AttributeWidget(
                     progress: hero.health,
-                    child: Image.asset(heart, package: 'ui_challenge_3'),
+                    child: Image.asset("assets/heart-alt.png"),
                   ),
                   AttributeWidget(
                     progress: hero.attack,
-                    child: Image.asset(knife, package: 'ui_challenge_3'),
+                    child: Image.asset("assets/knife.png"),
                   ),
                   SizedBox(
                     height: 32,
