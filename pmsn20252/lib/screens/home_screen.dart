@@ -46,7 +46,19 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       drawer: Drawer(),
-      body: Center(child: Text("Menu de opciones")),
+      body: Container(
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, "uiChallenge");
+              },
+              icon: Icon(Icons.nightlife),
+            ),
+          ],
+        ),
+      ),
       bottomNavigationBar: Padding(
         padding: EdgeInsets.only(bottom: 10),
         child: DotNavigationBar(
