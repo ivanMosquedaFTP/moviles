@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       valueListenable: ValueListener.isDark,
       builder: (context, value, _) {
         return MaterialApp(
-          theme: value ? ThemeApp.darkTheme() : ThemeApp.lightTheme(),
+          theme: value ? ThemeApp.tokyonight() : ThemeApp.tokyonightLight(),
           routes: {
             "/home": (context) => HomeScreen(),
             "/uiChallenge": (context) => UiChallenge3(),
