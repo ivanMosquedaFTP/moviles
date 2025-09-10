@@ -34,4 +34,48 @@ class ThemeApp {
     );
     return lightTheme;
   }
+
+  static ThemeData tokyonight() {
+    final base = ThemeData.dark();
+    return base.copyWith(
+      colorScheme: ColorScheme(
+        brightness: Brightness.dark,
+        primary: Color(0xFF7AA2F7),
+        onPrimary: Colors.white,
+        secondary: Color(0xFF9ECE6A),
+        onSecondary: Colors.white,
+        error: Color(0xFFF7768E),
+        onError: Colors.white,
+        background: Color(0xFF1A1B26),
+        onBackground: Color(0xFFC0CAF5),
+        surface: Color(0xFF1A1B26),
+        onSurface: Color(0xFFC0CAF5),
+      ),
+      scaffoldBackgroundColor: Color(0xFF1A1B26),
+    );
+  }
+
+  static ThemeData tokyonightLight() {
+    final base = ThemeData.light();
+    return base.copyWith(
+      colorScheme: ColorScheme(
+        brightness: Brightness.light,
+        primary: Color(0xFF2959AA),
+        onPrimary: Colors.white,
+        secondary: Color(0xFF385F0D),
+        onSecondary: Colors.white,
+        error: Color(0xFF8C4351),
+        onError: Colors.white,
+        background: Color(0xFFE6E7ED),
+        onBackground: Color(0xFF40434F),
+        surface: Color(0xFFE6E7ED),
+        onSurface: Color(0xFF343B58),
+      ),
+      scaffoldBackgroundColor: Color(0xFFE6E7ED),
+      textTheme: base.textTheme.apply(
+        bodyColor: Color(0xFF40434F),
+        displayColor: Color(0xFF343B58),
+      ),
+    );
+  }
 }
