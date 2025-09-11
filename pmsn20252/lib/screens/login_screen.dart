@@ -76,6 +76,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                       icon: Icon(Icons.login, size: 40),
                     ),
+                    IconButton(
+                      onPressed: () =>
+                          Navigator.pushNamed(context, "/register"),
+                      icon: Icon(Icons.add_circle),
+                    ),
                   ],
                 ),
               ),
