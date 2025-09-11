@@ -227,6 +227,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         },
                         icon: Icon(Icons.add_circle, size: 40),
                       ),
+                      IconButton(
+                        onPressed: () => Navigator.pop(context),
+                        icon: Icon(Icons.arrow_circle_left),
+                      ),
                     ],
                   ),
                 ),
