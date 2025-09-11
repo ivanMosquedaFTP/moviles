@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
           },
           title: 'Material App',
           // home: LoginScreen(),
-          home: RegisterScreen(),
+          home: LoginScreen(),
         );
       },
     );
