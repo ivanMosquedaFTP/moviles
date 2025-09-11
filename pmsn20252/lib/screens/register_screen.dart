@@ -11,16 +11,31 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  TextEditingController conName = TextEditingController();
-  TextEditingController conMiddleName = TextEditingController();
-  TextEditingController conLastName = TextEditingController();
-  TextEditingController conEmail = TextEditingController();
-  TextEditingController conPwd = TextEditingController();
+  final TextEditingController _conName = TextEditingController();
+  final TextEditingController _conMiddleName = TextEditingController();
+  final TextEditingController _conLastName = TextEditingController();
+  final TextEditingController _conEmail = TextEditingController();
+  final TextEditingController _conPwd = TextEditingController();
 
-  // optional, stores the file
+  final RegExp _emailRegex = RegExp(
+    r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+  );
+
+  // list to store each field's validation
+  late List<bool> _validate;
+
   File? _profileImage;
   final ImagePicker _picker = ImagePicker();
   bool isValidating = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // true means there's empty/error
+    // false means there's text/no error
+    //           name, middle, last, email, pwd
+    _validate = [false, false, false, false, false];
+  }
 
   // function to pick image from gallery or camera
   Future<void> _pickImage(ImageSource source) async {
@@ -57,32 +72,70 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
+  // Clear error on input change
+  void _clearError(int index) {
+    // true means there's error
+    if (_validate[index]) {
+      // sets it to false, which means there's no error
+      setState(() {
+        _validate[index] = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final txtName = TextField(
       keyboardType: TextInputType.name,
-      controller: conName,
-      decoration: InputDecoration(hintText: "Name"),
+      controller: _conName,
+      // false means no error
+      onChanged: (_) => _clearError(0),
+      decoration: InputDecoration(
+        hintText: "Name",
+        errorText: _validate[0] ? "The name field cannot be empty." : null,
+      ),
     );
     final txtMiddleName = TextField(
       keyboardType: TextInputType.name,
-      controller: conMiddleName,
-      decoration: InputDecoration(hintText: "Middle name"),
+      controller: _conMiddleName,
+      onChanged: (_) => _clearError(1),
+      decoration: InputDecoration(
+        hintText: "Middle name",
+        errorText: _validate[1]
+            ? "The middle name field cannot be empty."
+            : null,
+      ),
     );
     final txtLastName = TextField(
       keyboardType: TextInputType.name,
-      controller: conLastName,
-      decoration: InputDecoration(hintText: "Last name"),
+      controller: _conLastName,
+      onChanged: (_) => _clearError(2),
+      decoration: InputDecoration(
+        hintText: "Last name",
+        errorText: _validate[2] ? "The last name field cannot be empty." : null,
+      ),
     );
     final txtEmail = TextField(
       keyboardType: TextInputType.emailAddress,
-      controller: conEmail,
-      decoration: InputDecoration(hintText: "Email address"),
+      controller: _conEmail,
+      onChanged: (_) => _clearError(3),
+      decoration: InputDecoration(
+        hintText: "Email address",
+        errorText: _validate[3]
+            ? (_conEmail.text.isEmpty
+                  ? "The email field cannot be empty."
+                  : "Please enter a valid email address.")
+            : null,
+      ),
     );
     final txtPwd = TextField(
       obscureText: true,
-      controller: conPwd,
-      decoration: InputDecoration(hintText: "Password"),
+      controller: _conPwd,
+      onChanged: (_) => _clearError(4),
+      decoration: InputDecoration(
+        hintText: "Password",
+        errorText: _validate[4] ? "The password field cannot be empty." : null,
+      ),
     );
 
     return Scaffold(
@@ -144,11 +197,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       txtPwd,
                       IconButton(
                         onPressed: () {
-                          isValidating = true;
-                          setState(() {});
-                          Future.delayed(Duration(milliseconds: 3000)).then(
-                            (value) => Navigator.pushNamed(context, "/login"),
-                          );
+                          setState(() {
+                            _validate[0] = _conName.text.isEmpty;
+                            _validate[1] = _conMiddleName.text.isEmpty;
+                            _validate[2] = _conLastName.text.isEmpty;
+                            // checking for either empty or invalid email
+                            _validate[3] =
+                                _conEmail.text.isEmpty ||
+                                !_emailRegex.hasMatch(_conEmail.text);
+                            _validate[4] = _conPwd.text.isEmpty;
+                          });
+
+                          final bool formValidated =
+                              _conName.text.isNotEmpty &&
+                              _conMiddleName.text.isNotEmpty &&
+                              _conLastName.text.isNotEmpty &&
+                              _conEmail.text.isNotEmpty &&
+                              _emailRegex.hasMatch(_conEmail.text) &&
+                              _conPwd.text.isNotEmpty;
+
+                          if (formValidated) {
+                            setState(() {
+                              isValidating = true;
+                            });
+                            Future.delayed(Duration(milliseconds: 3000)).then(
+                              (value) => Navigator.pushNamed(context, "/login"),
+                            );
+                          }
                         },
                         icon: Icon(Icons.login, size: 40),
                       ),
