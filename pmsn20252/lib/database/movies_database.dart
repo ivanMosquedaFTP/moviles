@@ -58,6 +58,8 @@ class MoviesDatabase {
   Future<List<MovieDao>> SELECT() async {
     var con = await database;
 
+    // el atributo query de la conexion contiene la consulta select
+
     final res = await con!.query("tblMovies");
     return res.map((movie) => MovieDao.fromMap(movie)).toList();
   }
