@@ -45,7 +45,28 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      drawer: Drawer(),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            UserAccountsDrawerHeader(
+              accountName: Text('Rubensin torres frias'),
+              accountEmail: Text("ruben@itcelaya.edu.mx"),
+              currentAccountPicture: CircleAvatar(
+                child: Image.asset("assets/profilePicPlaceholder.png"),
+              ),
+            ),
+            ListTile(
+              // left section
+              leading: Icon(Icons.movie),
+              title: Text("List movies"),
+              subtitle: Text("Database"),
+              // right section
+              trailing: Icon(Icons.chevron_right_sharp),
+              onTap: () => Navigator.pushNamed(context, "/listdb"),
+            ),
+          ],
+        ),
+      ),
       body: Container(
         child: Stack(
           alignment: Alignment.center,
