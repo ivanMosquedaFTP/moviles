@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pmsn20252/screens/home_screen.dart';
+import 'package:pmsn20252/screens/list_movies.dart';
 import 'package:pmsn20252/screens/login_screen.dart';
 import 'package:pmsn20252/screens/register_screen.dart';
 import 'package:pmsn20252/ui_challenge_3.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
             "/uiChallenge": (context) => UiChallenge3(),
             "/register": (context) => RegisterScreen(),
             "/login": (context) => LoginScreen(),
+            "/listdb": (context) => const ListMovies(),
           },
           title: 'Material App',
           // home: LoginScreen(),
