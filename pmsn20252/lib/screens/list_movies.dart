@@ -20,7 +20,18 @@ class _ListMoviesState extends State<ListMovies> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Lista de peliculas: ")),
+      appBar: AppBar(
+        title: Text("Lista de peliculas: "),
+        actions: [
+          IconButton(
+            onPressed: () => Navigator.pushNamed(
+              context,
+              "/add",
+            ).then((value) => setState(() {})),
+            icon: Icon(Icons.add_sharp),
+          ),
+        ],
+      ),
       body: FutureBuilder(
         future: db!.SELECT(),
         builder: (context, snapshot) {
