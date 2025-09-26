@@ -28,18 +28,20 @@ class _ListMoviesState extends State<ListMovies> {
             return Center(child: Text("Something went wrong"));
           } else {
             if (snapshot.hasData) {
-              return ListView.builder(
-                itemBuilder: (context, index) {
-                  // data generated objetc
-                  final obj = snapshot.data![index];
-                  return Container(
-                    height: 100,
-                    color: Colors.black,
-                    // child: Text(snapshot.data[index].nameMovie),
-                    child: Text(obj.nameMovie!),
-                  );
-                },
-              );
+              return snapshot.data!.isNotEmpty
+                  ? ListView.builder(
+                      itemBuilder: (context, index) {
+                        // data generated objetc
+                        final obj = snapshot.data![index];
+                        return Container(
+                          height: 100,
+                          color: Colors.black,
+                          // child: Text(snapshot.data[index].nameMovie),
+                          child: Text(obj.nameMovie!),
+                        );
+                      },
+                    )
+                  : Center(child: Text("no existen datos"));
             } else {
               return Center(child: CircularProgressIndicator());
             }
