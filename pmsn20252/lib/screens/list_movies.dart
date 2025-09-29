@@ -60,9 +60,15 @@ class _ListMoviesState extends State<ListMovies> {
                                     onPressed: () {},
                                     icon: Icon(Icons.edit_sharp),
                                   ),
-                                  Expanded(child: Container()),
+                                  // Expanded(child: Container()),
                                   IconButton(
-                                    onPressed: () {},
+                                    onPressed: () async {
+                                      return showDialog(
+                                        context: context,
+                                        builder: (context) =>
+                                            _buildAlertDialog(),
+                                      );
+                                    },
                                     icon: Icon(Icons.delete_sharp),
                                   ),
                                 ],
@@ -79,6 +85,23 @@ class _ListMoviesState extends State<ListMovies> {
           }
         },
       ),
+    );
+  }
+
+  Widget _buildAlertDialog() {
+    return AlertDialog(
+      title: Text("Mensaje del sistema"),
+      content: Text("Deseas eliminar el registro? "),
+      actions: [
+        TextButton(
+          onPressed: () {},
+          child: Text("Aceptar", style: TextStyle(color: Colors.black)),
+        ),
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: Text("Cancelar", style: TextStyle(color: Colors.black)),
+        ),
+      ],
     );
   }
 }
