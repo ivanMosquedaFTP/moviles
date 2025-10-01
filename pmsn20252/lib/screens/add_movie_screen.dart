@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pmsn20252/database/movies_database.dart';
+import 'package:pmsn20252/models/movie_dao.dart';
 
 class AddMovieScreen extends StatefulWidget {
   const AddMovieScreen({super.key});
@@ -23,6 +24,14 @@ class _AddMovieScreenState extends State<AddMovieScreen> {
 
   @override
   Widget build(BuildContext context) {
+    MovieDao? obj;
+    if (ModalRoute.of(context)!.settings.arguments != null) {
+      obj = ModalRoute.of(context)!.settings.arguments as MovieDao;
+      conTitle.text = obj.nameMovie!;
+      conTime.text = obj.time!;
+      conRelease.text = obj.releaseDate!;
+    }
+
     conRelease.text = selectedDate.toLocal().toString().split(' ')[0];
 
     final txtTitle = TextFormField(
@@ -43,13 +52,24 @@ class _AddMovieScreenState extends State<AddMovieScreen> {
 
     final btnGuardar = ElevatedButton(
       onPressed: () {
-        moviesDb!
-            .INSERT("tblMovies", {
-              "nameMovie": conTitle.text,
-              "time": conTime.text,
-              "releaseDate": conRelease.text,
-            })
-            .then((value) => Navigator.pop(context));
+        if (obj == null) {
+          moviesDb!
+              .INSERT("tblMovies", {
+                "nameMovie": conTitle.text,
+                "time": conTime.text,
+                "releaseDate": conRelease.text,
+              })
+              .then((value) => Navigator.pop(context));
+        } else {
+          moviesDb!
+              .UPDATE("tblMovies", {
+                "idMovie": obj.idMovie,
+                "nameMovie": conTitle.text,
+                "time": conTime.text,
+                "releaseDate": conRelease.text,
+              })
+              .then((value) => Navigator.pop(context));
+        }
       },
       child: Text("Guardar"),
     );
