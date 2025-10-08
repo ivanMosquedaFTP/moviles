@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
+import 'package:pmsn20252/firebase/fire_auth.dart';
 
 class RegisterScreen extends StatefulWidget {
   RegisterScreen({Key? key}) : super(key: key);
@@ -28,6 +29,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final ImagePicker _picker = ImagePicker();
   bool isValidating = false;
 
+  FireAuth? _fireAuth;
+
   @override
   void initState() {
     super.initState();
@@ -35,6 +38,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     // false means there's text/no error
     //           name, middle, last, email, pwd
     _validate = [false, false, false, false, false];
+
+    _fireAuth = FireAuth();
   }
 
   // function to pick image from gallery or camera
@@ -220,6 +225,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             setState(() {
                               isValidating = true;
                             });
+                            _fireAuth!
+                                .registerWithEmailAndPassword(
+                                  _conEmail.text.trim(),
+                                  _conPwd.text.trim(),
+                                )
+                                .then((user) {
+                                  if (user != null) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text("Registro exitoso"),
+                                        backgroundColor: Colors.green,
+                                      ),
+                                    );
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text("Registro fallo"),
+                                        backgroundColor: Colors.red,
+                                      ),
+                                    );
+                                  }
+                                });
                             Future.delayed(Duration(milliseconds: 3000)).then(
                               (value) => Navigator.pushNamed(context, "/login"),
                             );

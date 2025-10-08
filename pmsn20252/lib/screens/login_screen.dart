@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:pmsn20252/firebase/fire_auth.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -12,7 +13,16 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController conUser = TextEditingController();
   TextEditingController conPwd = TextEditingController();
 
+  FireAuth? _fireAuth;
+
   bool isValidating = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _fireAuth = FireAuth();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,9 +80,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () {
                         isValidating = true;
                         setState(() {});
-                        Future.delayed(Duration(milliseconds: 3000)).then(
-                          (value) => Navigator.pushNamed(context, "/home"),
-                        );
+
+                        _fireAuth!
+                            .signInWithEmailAndPassword(
+                              conUser.text.trim(),
+                              conPwd.text.trim(),
+                            )
+                            .then((user) {
+                              if (user != null) {
+                                Navigator.pushNamed(context, "/home");
+                              }
+                            });
                       },
                       icon: Icon(Icons.login, size: 40),
                     ),
