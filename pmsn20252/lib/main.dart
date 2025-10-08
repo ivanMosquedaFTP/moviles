@@ -1,4 +1,6 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:pmsn20252/firebase_options.dart';
 import 'package:pmsn20252/screens/add_movie_screen.dart';
 import 'package:pmsn20252/screens/home_screen.dart';
 import 'package:pmsn20252/screens/list_movies.dart';
@@ -9,6 +11,8 @@ import 'package:pmsn20252/utils/theme_app.dart';
 import 'package:pmsn20252/utils/value_listener.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized(); // para la integracion con firebase
+  Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
