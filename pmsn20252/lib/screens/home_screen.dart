@@ -64,6 +64,13 @@ class _HomeScreenState extends State<HomeScreen> {
               trailing: Icon(Icons.chevron_right_sharp),
               onTap: () => Navigator.pushNamed(context, "/listdb"),
             ),
+            ListTile(
+              leading: Icon(Icons.music_note_sharp),
+              title: Text("Manage songs"),
+              subtitle: Text("List of available songs"),
+              trailing: Icon(Icons.chevron_right_sharp),
+              onTap: () => Navigator.pushNamed(context, "/listSongs"),
+            ),
           ],
         ),
       ),
