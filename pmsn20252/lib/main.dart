@@ -2,8 +2,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:pmsn20252/firebase_options.dart';
 import 'package:pmsn20252/screens/add_movie_screen.dart';
+import 'package:pmsn20252/screens/add_song_screen.dart';
 import 'package:pmsn20252/screens/home_screen.dart';
 import 'package:pmsn20252/screens/list_movies.dart';
+import 'package:pmsn20252/screens/list_songs_screen.dart';
 import 'package:pmsn20252/screens/login_screen.dart';
 import 'package:pmsn20252/screens/register_screen.dart';
 import 'package:pmsn20252/ui_challenge_3.dart';
@@ -32,7 +34,9 @@ class MyApp extends StatelessWidget {
             "/register": (context) => RegisterScreen(),
             "/login": (context) => LoginScreen(),
             "/listdb": (context) => const ListMovies(),
-            "/add": (context) => const AddMovieScreen(),
+            "/addMovie": (context) => const AddMovieScreen(),
+            "/listSongs": (context) => const ListSongsScreen(),
+            "/addSong": (context) => const AddSongScreen(),
           },
           title: 'Material App',
           // home: LoginScreen(),
