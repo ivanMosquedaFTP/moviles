@@ -26,7 +26,7 @@ class _ListMoviesState extends State<ListMovies> {
           IconButton(
             onPressed: () => Navigator.pushNamed(
               context,
-              "/add",
+              "/addMovie",
             ).then((value) => setState(() {})),
             icon: Icon(Icons.add_sharp),
           ),
@@ -59,7 +59,7 @@ class _ListMoviesState extends State<ListMovies> {
                                   IconButton(
                                     onPressed: () => Navigator.pushNamed(
                                       context,
-                                      "/add",
+                                      "/addMovie",
                                       arguments: obj,
                                     ).then((value) => setState(() {})),
                                     icon: Icon(Icons.edit_sharp),
