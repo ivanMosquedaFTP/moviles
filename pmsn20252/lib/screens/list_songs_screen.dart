@@ -14,7 +14,15 @@ class _ListSongsScreenState extends State<ListSongsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Lista de canciones")),
+      appBar: AppBar(
+        title: Text("Lista de canciones"),
+        actions: [
+          IconButton(
+            onPressed: () => Navigator.pushNamed(context, "/addSong"),
+            icon: Icon(Icons.add_sharp),
+          ),
+        ],
+      ),
       body: StreamBuilder(
         stream: _songsFirebase.getAllSongs(),
         builder: (context, snapshot) {
