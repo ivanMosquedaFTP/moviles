@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pmsn20252/firebase/songs_firebase.dart';
 
 class AddSongScreen extends StatefulWidget {
   const AddSongScreen({super.key});
@@ -12,6 +13,14 @@ class _AddSongScreenState extends State<AddSongScreen> {
   TextEditingController conDuration = TextEditingController();
   TextEditingController conLyrics = TextEditingController();
   TextEditingController conTitle = TextEditingController();
+
+  SongsFirebase? _songsFirebase;
+
+  @override
+  void initState() {
+    super.initState();
+    _songsFirebase = SongsFirebase();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +57,25 @@ class _AddSongScreenState extends State<AddSongScreen> {
           txtLyrics,
           txtTitle,
           SizedBox(height: 50),
-          ElevatedButton(onPressed: () {}, child: Text("Add song")),
+          ElevatedButton(
+            onPressed: () {
+              _songsFirebase!
+                  .insertSong({
+                    "title": conTitle.text,
+                    "duration": conDuration.text,
+                    "lyrics": conLyrics.text,
+                    "cover":
+                        "https://cdn-images.dzcdn.net/images/cover/40c6b089a9ed1463ec23b5177a8b424c/0x1900-000000-80-0-0.jpg",
+                  })
+                  .then((value) {
+                    ScaffoldMessenger.of(
+                      context,
+                    ).showSnackBar(SnackBar(content: Text("Cancion guardada")));
+                    Navigator.pop(context);
+                  });
+            },
+            child: Text("Add song"),
+          ),
         ],
       ),
     );
